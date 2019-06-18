@@ -13,4 +13,7 @@ COPY auth.conf healthcheck.conf auth.htpasswd launch.sh ./
 
 HEALTHCHECK CMD wget -q http://localhost:80/ || exit 1
 
+# make sure root login is disabled
+RUN sed -i -e 's/^root::/root:!:/' /etc/shadow
+
 CMD ["./launch.sh"]
